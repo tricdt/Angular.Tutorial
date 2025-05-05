@@ -1,5 +1,5 @@
 {
-  "name": "Angular.Tutorial",
+  "name": "angular.tutorial",
   "private": true,
   "scripts": {
     "build": "turbo run build",
