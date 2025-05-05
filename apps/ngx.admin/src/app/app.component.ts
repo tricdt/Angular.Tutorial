@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    standalone: false,
+    selector: "app-root",
+    template: `<h1>Welcome to ngx-admin!</h1>`,
 })
 export class AppComponent {
-  title = 'ngx.admin';
+
 }
