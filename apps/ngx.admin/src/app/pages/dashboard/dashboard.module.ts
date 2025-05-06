@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DashboardComponent } from './dashboard.component';
+import { NbButtonModule } from '@nebular/theme';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [DashboardComponent],
   imports: [
-    CommonModule
+    CommonModule, NbButtonModule,
   ]
 })
 export class DashboardModule { }
