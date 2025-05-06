@@ -1,1 +1,53 @@
-<p>pages works!</p>
+<!-- <nb-layout>
+    <nb-layout-header fixed>Company Name</nb-layout-header>
+
+    <nb-sidebar>Sidebar Content</nb-sidebar>
+
+    <nb-layout-column>
+        Page Content <button nbButton>Hello World</button>
+    </nb-layout-column>
+</nb-layout> -->
+<h1>Pages</h1>
+<nb-layout>
+    <nb-layout-header fixed>Company Name</nb-layout-header>
+
+    <nb-layout-column>
+        <nb-card>
+            <nb-card-header>Button Outline</nb-card-header>
+            <nb-card-body class="example-items-rows">
+                <button nbButton outline status="primary">Primary</button>
+                <button nbButton outline status="success">Success</button>
+                <button nbButton outline status="info">Info</button>
+                <button nbButton outline status="warning">Warning</button>
+                <button nbButton outline status="danger">Danger</button>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-header>Accordion</nb-card-header>
+            <nb-card-body>
+                <nb-accordion>
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>Product Details</nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>Reviews</nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            This is a review section where you can add your content.
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+
+                    <nb-accordion-item>
+                        <nb-accordion-item-header>Shipping Info</nb-accordion-item-header>
+                        <nb-accordion-item-body>
+                            Shipping information and delivery details go here.
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </nb-card-body>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>
