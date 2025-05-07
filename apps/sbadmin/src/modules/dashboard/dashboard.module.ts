@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 /* Containers */
 import * as dashboardContainers from './containers';
+import { NavigationModule } from '@modules/navigation/navigation.module';
 
 @NgModule({
   declarations: [...dashboardContainers.containers],
   imports: [
-    CommonModule,
+    CommonModule, NavigationModule
   ],
   exports:[...dashboardContainers.containers],
   providers: [],
