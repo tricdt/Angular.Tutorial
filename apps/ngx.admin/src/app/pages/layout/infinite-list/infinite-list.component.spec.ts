@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditorsComponent } from './editors.component';
+import { InfiniteListComponent } from './infinite-list.component';
 
-describe('EditorsComponent', () => {
-  let component: EditorsComponent;
-  let fixture: ComponentFixture<EditorsComponent>;
+describe('InfiniteListComponent', () => {
+  let component: InfiniteListComponent;
+  let fixture: ComponentFixture<InfiniteListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditorsComponent]
+      imports: [InfiniteListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditorsComponent);
+    fixture = TestBed.createComponent(InfiniteListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

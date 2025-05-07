@@ -17,8 +17,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
 
 import { OneColumnLayoutComponent } from './layouts';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent, HeaderComponent } from './components';
 
 const NB_MODULES = [
   NbLayoutModule,

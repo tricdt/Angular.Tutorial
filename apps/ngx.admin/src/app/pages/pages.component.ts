@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MENU_ITEMS } from './pages-menu';
 
 @Component({
   standalone: false,
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './pages.component.scss'
 })
 export class PagesComponent {
-
+  menu = MENU_ITEMS;
 }

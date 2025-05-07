@@ -6,7 +6,7 @@ import { NbButtonModule } from '@nebular/theme';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [],
   imports: [
     CommonModule, NbButtonModule,
   ]
