@@ -9,6 +9,7 @@ import * as navigationContainers from './containers';
 
 /* Layouts */
 import * as appCommonLayouts from './layouts';
+import { AppCommonModule } from '@common/app-common.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import * as appCommonLayouts from './layouts';
     ...appCommonLayouts.layouts,
   ],
   imports: [
-    CommonModule
+    CommonModule, AppCommonModule
   ],
   exports: [
     ...navigationContainers.containers,

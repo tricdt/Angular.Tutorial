@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from '@modules/navigation/services';
 
 @Component({
   standalone: false,
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './top-nav.component.scss'
 })
 export class TopNavComponent {
-  toggleSideNav(){}
+  constructor(private navigationService: NavigationService) { }
+  toggleSideNav(){
+    this.navigationService.toggleSideNav();
+  }
 }
