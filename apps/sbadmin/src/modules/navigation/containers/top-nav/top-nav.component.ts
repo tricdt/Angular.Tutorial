@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './top-nav.component.scss'
 })
 export class TopNavComponent {
-
+  toggleSideNav(){}
 }

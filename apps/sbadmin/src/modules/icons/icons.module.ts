@@ -1,12 +1,20 @@
+/* tslint:disable: ordered-imports*/
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
-
+import { fontAwesomeSolidIcons } from './icons.font-awesome-solid';
+import { fontAwesomeRegularIcons } from './icons.font-awesome-regular';
+import { fontAwesomeBrandsIcons } from './icons.font-awesome-brands';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+    exports: [FontAwesomeModule],
 })
-export class IconsModule { }
+export class IconsModule {
+    constructor(library: FaIconLibrary) {
+        library.addIconPacks(
+            fontAwesomeSolidIcons,
+            fontAwesomeRegularIcons,
+            fontAwesomeBrandsIcons
+        );
+    }
+}
