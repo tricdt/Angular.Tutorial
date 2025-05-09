@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '@modules/auth/services/user.service';
 
 @Component({
   standalone: false,
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './top-nav-user.component.html',
   styleUrl: './top-nav-user.component.scss'
 })
-export class TopNavUserComponent {
-
+export class TopNavUserComponent implements OnInit {
+  constructor(public userService: UserService) {}
+  ngOnInit() {}
 }
