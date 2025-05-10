@@ -13,7 +13,7 @@ export class LayoutDashboardComponent implements OnInit , OnDestroy {
 
   @Input() static = false;
   @Input() light = false;
-  @HostBinding('class.app-sidenav-toggled') sideNavHidden = true;
+  @HostBinding('class.app-sidenav-toggled') sideNavHidden = false;
   subscription: Subscription = new Subscription();
   sideNavItems = sideNavItems;
   sideNavSections = sideNavSections;

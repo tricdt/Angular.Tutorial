@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SBRouteData, SideNavItem } from '@modules/navigation/models';
 
 @Component({
   standalone: false,
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './side-nav-item.component.scss'
 })
 export class SideNavItemComponent {
+  @Input() sideNavItem!: SideNavItem;
+  @Input() isActive!: boolean;
 
+  expanded = false;
+  routeData!: SBRouteData;
+
+  constructor() { }
+  ngOnInit() { }
 }
