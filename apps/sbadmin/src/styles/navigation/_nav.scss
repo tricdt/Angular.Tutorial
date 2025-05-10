@@ -5,3 +5,11 @@
     margin-right: 0.5rem;
   }
 }
+
+a.nav-link {
+  cursor: pointer;
+  
+  &:hover {
+      text-decoration: none;
+  }
+}
