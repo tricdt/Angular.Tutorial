@@ -1,3 +1,8 @@
 import { Routes } from "@angular/router";
 
-export default [] as Routes;
+export default [
+    {
+        path: '',
+        loadComponent: () => import('./components/catalogs/catalogs.component').then(m => m.CatalogsComponent),
+    }
+] as Routes;
