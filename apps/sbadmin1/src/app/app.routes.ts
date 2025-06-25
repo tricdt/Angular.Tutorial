@@ -16,6 +16,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/laboratories/laboratories.routes'),
       },
+      {
+        path: 'ngbootstrap',
+        loadChildren: () =>
+          import('./features/ngbootstrap/ngbootstrap.routes'),
+      }
     ],
   },
   {
