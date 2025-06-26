@@ -3,8 +3,29 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
-    "strict": true,
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@common/*": [
+        "modules/app-common/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@testing/*": [
+        "testing/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+    },
+    "strict": false,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -16,7 +37,11 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
