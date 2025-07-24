@@ -1,4 +1,4 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable, signal } from '@angular/core';
 export interface layoutConfig {
   preset?: string;
   primary?: string;
@@ -19,14 +19,14 @@ interface MenuChangeEvent {
   key: string;
   routeEvent?: boolean;
 }
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class LayoutService {
   _config: layoutConfig = {
-    preset: "Aura",
-    primary: "emerald",
+    preset: 'Aura',
+    primary: 'emerald',
     surface: null,
     darkTheme: false,
-    menuMode: "static",
+    menuMode: 'static'
   };
 
   _state: LayoutState = {
@@ -34,7 +34,7 @@ export class LayoutService {
     overlayMenuActive: false,
     configSidebarVisible: false,
     staticMenuMobileActive: false,
-    menuHoverActive: false,
+    menuHoverActive: false
   };
 
   layoutConfig = signal<layoutConfig>(this._config);
