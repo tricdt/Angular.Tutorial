@@ -7,6 +7,7 @@ import { LayoutService } from '../service/layout.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
 const presets = {
   Aura,
   Lara,
@@ -78,7 +79,7 @@ declare type SurfacesType = {
       </div>
       <div class="flex flex-col gap-2">
         <span class="text-sm text-muted-color font-semibold">Presets</span>
-        <p-selectbutton [options]="presets" [allowEmpty]="false" size="small" />
+        <p-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
       </div>
       <div *ngIf="showMenuModeButton()" class="flex flex-col gap-2">
         <span class="text-sm text-muted-color font-semibold">Menu Mode</span>
@@ -396,7 +397,7 @@ export class AppConfiguration implements OnInit {
     }
   }
 
-  updateColors($event: MouseEvent, type: string, color: SurfacesType) {
+  updateColors(event: MouseEvent, type: string, color: SurfacesType) {
     if (type === 'primary') {
       this.layoutService.layoutConfig.update((state) => ({
         ...state,
@@ -408,6 +409,23 @@ export class AppConfiguration implements OnInit {
         surface: color.name
       }));
     }
+    this.applyTheme(type, color);
+    event.stopPropagation();
+  }
+
+  applyTheme(type: string, color: any) {
+    if (type === 'primary') {
+      updatePreset(this.getPresetExt());
+    } else if (type === 'surface') {
+      updateSurfacePalette(color.palette);
+    }
+  }
+
+  onPresetChange(event: any) {
+    this.layoutService.layoutConfig.update((state) => ({ ...state, preset: event }));
+    const preset = presets[event as KeyOfType<typeof presets>];
+    const surfacePalette = this.surfaces.find((s) => s.name === this.selectedSurfaceColor())?.palette;
+    $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({ useDefaultOptions: true });
   }
 
   onMenuModeChange(event: string) {

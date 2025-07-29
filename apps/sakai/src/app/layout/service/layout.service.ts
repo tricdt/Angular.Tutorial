@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
+import { Subject } from 'rxjs';
 export interface layoutConfig {
   preset?: string;
   primary?: string;
@@ -40,5 +41,60 @@ export class LayoutService {
   layoutConfig = signal<layoutConfig>(this._config);
 
   layoutState = signal<LayoutState>(this._state);
-  constructor() {}
+
+  transitionComplete = signal<boolean>(false);
+
+  isDarkTheme = computed(() => this.layoutConfig().darkTheme);
+
+  private initialized = false;
+
+  constructor() {
+    effect(() => {
+      const config = this.layoutConfig();
+
+      if (!this.initialized || !config) {
+        this.initialized = true;
+        return;
+      }
+
+      this.handleDarkModeTransition(config);
+    });
+  }
+
+  private handleDarkModeTransition(config: layoutConfig): void {
+    if ((document as any).startViewTransition) {
+      this.startViewTransition(config);
+    } else {
+      this.toggleDarkMode(config);
+      this.onTransitionEnd();
+    }
+  }
+
+  private startViewTransition(config: layoutConfig): void {
+    const transition = (document as any).startViewTransition(() => {
+      this.toggleDarkMode(config);
+    });
+
+    transition.ready
+      .then(() => {
+        this.onTransitionEnd();
+      })
+      .catch(() => {});
+  }
+
+  toggleDarkMode(config?: layoutConfig): void {
+    const _config = config || this.layoutConfig();
+    if (_config.darkTheme) {
+      document.documentElement.classList.add('app-dark');
+    } else {
+      document.documentElement.classList.remove('app-dark');
+    }
+  }
+
+  private onTransitionEnd() {
+    this.transitionComplete.set(true);
+    setTimeout(() => {
+      this.transitionComplete.set(false);
+    });
+  }
 }
