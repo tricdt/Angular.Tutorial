@@ -44,7 +44,13 @@ export class LayoutService {
 
   transitionComplete = signal<boolean>(false);
 
+  private overlayOpen = new Subject<any>();
+
+  overlayOpen$ = this.overlayOpen.asObservable();
+
   isDarkTheme = computed(() => this.layoutConfig().darkTheme);
+
+  isOverlay = computed(() => this.layoutConfig().menuMode === 'overlay');
 
   private initialized = false;
 
@@ -82,6 +88,13 @@ export class LayoutService {
       .catch(() => {});
   }
 
+  private onTransitionEnd() {
+    this.transitionComplete.set(true);
+    setTimeout(() => {
+      this.transitionComplete.set(false);
+    });
+  }
+
   toggleDarkMode(config?: layoutConfig): void {
     const _config = config || this.layoutConfig();
     if (_config.darkTheme) {
@@ -91,10 +104,27 @@ export class LayoutService {
     }
   }
 
-  private onTransitionEnd() {
-    this.transitionComplete.set(true);
-    setTimeout(() => {
-      this.transitionComplete.set(false);
-    });
+  onMenuToggle() {
+    if (this.isOverlay()) {
+      this.layoutState.update((prev) => ({ ...prev, overlayMenuActive: !this.layoutState().overlayMenuActive }));
+
+      if (this.layoutState().overlayMenuActive) {
+        this.overlayOpen.next(null);
+      }
+    }
+
+    if (this.isDesktop()) {
+      this.layoutState.update((prev) => ({ ...prev, staticMenuDesktopInactive: !this.layoutState().staticMenuDesktopInactive }));
+    } else {
+      this.layoutState.update((prev) => ({ ...prev, staticMenuMobileActive: !this.layoutState().staticMenuMobileActive }));
+
+      if (this.layoutState().staticMenuMobileActive) {
+        this.overlayOpen.next(null);
+      }
+    }
+  }
+
+  isDesktop() {
+    return window.innerWidth > 991;
   }
 }
