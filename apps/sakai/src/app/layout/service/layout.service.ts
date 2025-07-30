@@ -46,7 +46,11 @@ export class LayoutService {
 
   private overlayOpen = new Subject<any>();
 
+  private menuSource = new Subject<MenuChangeEvent>();
+
   overlayOpen$ = this.overlayOpen.asObservable();
+
+  menuSource$ = this.menuSource.asObservable();
 
   isDarkTheme = computed(() => this.layoutConfig().darkTheme);
 
@@ -126,5 +130,9 @@ export class LayoutService {
 
   isDesktop() {
     return window.innerWidth > 991;
+  }
+
+  onMenuStateChange(event: MenuChangeEvent) {
+    this.menuSource.next(event);
   }
 }
