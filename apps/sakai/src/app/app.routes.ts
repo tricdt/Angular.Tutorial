@@ -6,11 +6,15 @@ import { Documentation } from './pages/documentation/documentation';
 export const routes: Routes = [
   {
     path: '',
-    component: AppLayout,
-    children: [
-      { path: '', component: Dashboard },
-      { path: 'documentation', component: Documentation },
-      { path: 'pages', loadChildren: () => import('./pages/pages.routes') },
-    ],
-  },
+    loadChildren: () => import('./protected-zone/protected-zone.routes')
+  }
+  // {
+  //   path: '',
+  //   component: AppLayout,
+  //   children: [
+  //     { path: '', component: Dashboard },
+  //     { path: 'documentation', component: Documentation },
+  //     { path: 'pages', loadChildren: () => import('./pages/pages.routes') },
+  //   ],
+  // },
 ];
