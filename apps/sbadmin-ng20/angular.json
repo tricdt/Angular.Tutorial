@@ -8,9 +8,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true,
-          "inlineStyle": true,
-          "inlineTemplate": true
+          "skipTests": true
         }
       },
       "root": "",
@@ -96,5 +94,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
