@@ -8,7 +8,7 @@ import { AppFunction } from '@app/shared/models/function.model';
   imports: [CommonModule],
   template: `
     <ng-container>
-      <a *ngIf="root && item.children != null" class="layout-menuitem-root-text">
+      <a *ngIf="root && item.children != null" class="layout-menuitem-root-text" (click)="itemClick($event)">
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span>{{ item.name }}</span>
         <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
@@ -18,7 +18,7 @@ import { AppFunction } from '@app/shared/models/function.model';
         <span>{{ item.name }}</span>
         <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
       </a>
-      <a *ngIf="!root">
+      <a *ngIf="!root" (click)="itemClick($event)">
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span>{{ item.name }}</span>
         <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
@@ -55,9 +55,20 @@ export class AppMenuItem implements OnInit {
   @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
   active = false;
   constructor() {}
+
   @HostBinding('class.active-menuitem')
+  get activeClass() {
+    return this.active;
+  }
+
   get submenuAnimation() {
     return this.active ? 'expanded' : 'collapsed';
   }
   ngOnInit() {}
+  itemClick(event: Event) {
+    // toggle active state
+    if (this.item.children) {
+      this.active = !this.active;
+    }
+  }
 }
