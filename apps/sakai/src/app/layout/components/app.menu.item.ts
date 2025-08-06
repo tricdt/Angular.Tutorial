@@ -1,0 +1,63 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { AppFunction } from '@app/shared/models/function.model';
+
+@Component({
+  selector: '[app-menuitem]',
+  imports: [CommonModule],
+  template: `
+    <ng-container>
+      <a *ngIf="root && item.children != null" class="layout-menuitem-root-text">
+        <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
+        <span>{{ item.name }}</span>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
+      </a>
+      <a *ngIf="root && item.children == null" class="layout-menuitem-root-text">
+        <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
+        <span>{{ item.name }}</span>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
+      </a>
+      <a *ngIf="!root">
+        <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
+        <span>{{ item.name }}</span>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
+      </a>
+      <ul *ngIf="item.children" [@children]="submenuAnimation">
+        <ng-template ngFor let-child let-i="index" [ngForOf]="item.children">
+          <li app-menuitem [item]="child" [index]="i"></li>
+        </ng-template>
+      </ul>
+    </ng-container>
+  `,
+  animations: [
+    trigger('children', [
+      state(
+        'collapsed',
+        style({
+          height: '0'
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*'
+        })
+      ),
+      transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+    ])
+  ]
+})
+export class AppMenuItem implements OnInit {
+  @Input() item!: AppFunction;
+  @Input() index!: number;
+  @Input() parentKey!: string;
+  @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
+  active = false;
+  constructor() {}
+  @HostBinding('class.active-menuitem')
+  get submenuAnimation() {
+    return this.active ? 'expanded' : 'collapsed';
+  }
+  ngOnInit() {}
+}

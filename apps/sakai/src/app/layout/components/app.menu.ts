@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { AppMenuItem1 } from './app.menu-item';
+
 import { RouterModule } from '@angular/router';
 import { AppFunction } from '@app/shared/models/function.model';
+import { AppMenuItem } from './app.menu.item';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-menu',
-  imports: [CommonModule, RouterModule, AppMenuItem1],
+  imports: [CommonModule, RouterModule, AppMenuItem],
   template: `
     <ul class="layout-menu">
-      <ng-container *ngFor="let item of model; let i = index">
-        <li app-menu-item *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-        <li *ngIf="item.separator" class="menu-separator"></li>
+      <ng-container *ngFor="let item of functions; let i = index">
+        <li app-menuitem [item]="item" [index]="i" [root]="true"></li>
+        <!-- <li app-menu-item *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li> -->
+        <!-- <li *ngIf="item.separator" class="menu-separator"></li> -->
         <!-- <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
         <li *ngIf="item.separator" class="menu-separator"></li> -->
       </ng-container>
@@ -27,7 +29,7 @@ export class AppMenu implements OnInit {
       url: '/contents',
       sortOrder: 0,
       parentId: null,
-      icon: '',
+      icon: 'pi pi-home',
       children: [
         {
           id: 'CONTENT_CATEGORY',
@@ -35,7 +37,25 @@ export class AppMenu implements OnInit {
           url: '/contents/categories',
           sortOrder: 0,
           parentId: 'CONTENT',
-          icon: null
+          icon: 'pi pi-plus',
+          children: [
+            {
+              id: 'CONTENT_CATEGORY_CREATE',
+              name: 'Tạo mới',
+              url: '/contents/categories/create',
+              sortOrder: 0,
+              parentId: 'CONTENT_CATEGORY',
+              icon: 'pi pi-heart'
+            },
+            {
+              id: 'CONTENT_CATEGORY_EDIT',
+              name: 'Chỉnh sửa',
+              url: '/contents/categories/edit',
+              sortOrder: 1,
+              parentId: 'CONTENT_CATEGORY',
+              icon: 'pi pi-heart'
+            }
+          ]
         },
         {
           id: 'CONTENT_KNOWLEDGEBASE',
@@ -69,7 +89,7 @@ export class AppMenu implements OnInit {
       url: '/statistics',
       sortOrder: 0,
       parentId: null,
-      icon: 'fa-bar-chart-o',
+      icon: 'pi pi-home',
       children: [
         {
           id: 'STATISTIC_MONTHLY_NEWMEMBER',
@@ -103,7 +123,7 @@ export class AppMenu implements OnInit {
       url: '/systems',
       sortOrder: 0,
       parentId: null,
-      icon: 'fa-th-list',
+      icon: 'pi pi-home',
       children: [
         {
           id: 'SYSTEM_FUNCTION',
@@ -145,9 +165,10 @@ export class AppMenu implements OnInit {
       url: '/dashboard',
       sortOrder: 1,
       parentId: null,
-      icon: 'fa-dashboard'
+      icon: 'pi pi-home'
     }
   ];
+  active = false;
   constructor() {}
 
   model: AppFunction[] = [
@@ -160,6 +181,9 @@ export class AppMenu implements OnInit {
       icon: 'pi pi-fw pi-home'
     }
   ];
+  get submenuAnimation() {
+    return this.active ? 'expanded' : 'collapsed';
+  }
   ngOnInit() {
     this.model = this.model.map((item) => ({ ...item, children: this.functions }));
     console.log(this.functions);
