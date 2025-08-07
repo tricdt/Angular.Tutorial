@@ -1,27 +1,31 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
 import { AppFunction } from '@app/shared/models/function.model';
 
 @Component({
   selector: '[app-menuitem]',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <ng-container>
       <a *ngIf="root && item.children != null" class="layout-menuitem-root-text" (click)="itemClick($event)">
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span>{{ item.name }}</span>
-        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler"></i>
       </a>
-      <a *ngIf="root && item.children == null" class="layout-menuitem-root-text">
+      <a *ngIf="root && item.children == null" class="layout-menuitem-root-text" [routerLink]="item.url" routerLinkActive="active-route" [routerLinkActiveOptions]="{ exact: true }">
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span>{{ item.name }}</span>
-        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
       </a>
-      <a *ngIf="!root" (click)="itemClick($event)">
+      <a *ngIf="!root && item.children" (click)="itemClick($event)">
         <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
         <span>{{ item.name }}</span>
-        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.children"></i>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler"></i>
+      </a>
+      <a *ngIf="!root && !item.children" [routerLink]="item.url" routerLinkActive="active-route" [routerLinkActiveOptions]="{ exact: true }">
+        <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
+        <span>{{ item.name }}</span>
       </a>
       <ul *ngIf="item.children" [@children]="submenuAnimation">
         <ng-template ngFor let-child let-i="index" [ngForOf]="item.children">
